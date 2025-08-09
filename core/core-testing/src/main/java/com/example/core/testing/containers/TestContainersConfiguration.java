@@ -29,7 +29,7 @@ public class TestContainersConfiguration {
 
     @Bean
     public VaultContainer<?> vaultContainer() {
-        return new VaultContainer<>(DockerImageName.parse("vault:1.15.2"))
+        return new VaultContainer<>(DockerImageName.parse("hashicorp/vault:latest"))
                 .withVaultToken("test-token")
                 .withVaultPort(8200)
                 .withSecretInVault("secret/application", "spring.datasource.password", "test")
