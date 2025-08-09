@@ -2,36 +2,39 @@ package com.example.userservice.repository;
 
 import com.example.core.database.repository.BaseRepository;
 import com.example.userservice.model.User;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
-
 @Repository
 public class UserRepository extends BaseRepository<User, Long> {
 
-    private static final String INSERT_USER = """
-        INSERT INTO users (name, email, created_at, updated_at) 
+    private static final String INSERT_USER =
+            """
+        INSERT INTO users (name, email, created_at, updated_at)
         VALUES (:name, :email, :createdAt, :updatedAt)
         """;
 
-    private static final String UPDATE_USER = """
-        UPDATE users SET name = :name, email = :email, updated_at = :updatedAt 
+    private static final String UPDATE_USER =
+            """
+        UPDATE users SET name = :name, email = :email, updated_at = :updatedAt
         WHERE id = :id
         """;
 
-    private static final String SELECT_ALL_USERS = """
-        SELECT id, name, email, created_at, updated_at FROM users 
+    private static final String SELECT_ALL_USERS =
+            """
+        SELECT id, name, email, created_at, updated_at FROM users
         ORDER BY created_at DESC
         """;
 
-    private static final String SELECT_USER_BY_ID = """
+    private static final String SELECT_USER_BY_ID =
+            """
         SELECT id, name, email, created_at, updated_at FROM users WHERE id = ?
         """;
 
@@ -39,7 +42,8 @@ public class UserRepository extends BaseRepository<User, Long> {
 
     private static final String EXISTS_USER_BY_ID = "SELECT COUNT(*) FROM users WHERE id = ?";
 
-    private static final String SELECT_USER_BY_EMAIL = """
+    private static final String SELECT_USER_BY_EMAIL =
+            """
         SELECT id, name, email, created_at, updated_at FROM users WHERE email = ?
         """;
 

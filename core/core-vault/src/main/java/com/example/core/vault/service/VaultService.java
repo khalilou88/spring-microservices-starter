@@ -1,13 +1,12 @@
 package com.example.core.vault.service;
 
+import java.util.Map;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.vault.core.VaultTemplate;
 import org.springframework.vault.support.VaultResponse;
-
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class VaultService {

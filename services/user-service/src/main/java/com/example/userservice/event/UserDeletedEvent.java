@@ -16,6 +16,11 @@ public class UserDeletedEvent extends BaseEvent {
         this.userEmail = userEmail;
     }
 
-    public Long getUserId() { return userId; }
-    public String getUserEmail() { return userEmail; }
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
 }

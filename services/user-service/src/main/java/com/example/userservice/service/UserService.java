@@ -8,12 +8,11 @@ import com.example.userservice.exception.UserAlreadyExistsException;
 import com.example.userservice.exception.UserNotFoundException;
 import com.example.userservice.model.User;
 import com.example.userservice.repository.UserRepository;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -50,7 +49,8 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User getUserById(Long id) {
-        return userRepository.findById(id)
+        return userRepository
+                .findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
     }
 
@@ -66,10 +66,9 @@ public class UserService {
 
         // Check if email is being changed and if new email already exists
         if (!existingUser.getEmail().equals(userUpdate.getEmail())) {
-            userRepository.findByEmail(userUpdate.getEmail())
-                    .ifPresent(user -> {
-                        throw new UserAlreadyExistsException("User with email " + userUpdate.getEmail() + " already exists");
-                    });
+            userRepository.findByEmail(userUpdate.getEmail()).ifPresent(user -> {
+                throw new UserAlreadyExistsException("User with email " + userUpdate.getEmail() + " already exists");
+            });
         }
 
         existingUser.setName(userUpdate.getName());
@@ -78,7 +77,8 @@ public class UserService {
         User updatedUser = userRepository.save(existingUser);
 
         // Publish event
-        UserUpdatedEvent event = new UserUpdatedEvent(updatedUser.getId(), updatedUser.getName(), updatedUser.getEmail());
+        UserUpdatedEvent event =
+                new UserUpdatedEvent(updatedUser.getId(), updatedUser.getName(), updatedUser.getEmail());
         eventPublisher.publishEvent(USER_EVENTS_TOPIC, updatedUser.getId().toString(), event);
 
         logger.info("User updated successfully: {}", updatedUser.getId());

@@ -1,13 +1,12 @@
 package com.example.core.database.repository;
 
+import java.util.List;
+import java.util.Optional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-
-import java.util.List;
-import java.util.Optional;
 
 public abstract class BaseRepository<T, ID> {
 
@@ -20,14 +19,18 @@ public abstract class BaseRepository<T, ID> {
     }
 
     public abstract T save(T entity);
+
     public abstract Optional<T> findById(ID id);
+
     public abstract List<T> findAll();
+
     public abstract void deleteById(ID id);
+
     public abstract boolean existsById(ID id);
 
     protected Long executeInsertAndReturnKey(String sql, MapSqlParameterSource params) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(sql, params, keyHolder, new String[]{"id"});
+        namedParameterJdbcTemplate.update(sql, params, keyHolder, new String[] {"id"});
         return keyHolder.getKey().longValue();
     }
 }

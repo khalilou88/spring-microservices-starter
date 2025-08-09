@@ -20,7 +20,15 @@ public class UserUpdatedEvent extends BaseEvent {
         this.userEmail = userEmail;
     }
 
-    public Long getUserId() { return userId; }
-    public String getUserName() { return userName; }
-    public String getUserEmail() { return userEmail; }
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
 }

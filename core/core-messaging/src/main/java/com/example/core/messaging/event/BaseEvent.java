@@ -1,7 +1,6 @@
 package com.example.core.messaging.event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.Instant;
 import java.util.UUID;
 
@@ -19,8 +18,19 @@ public abstract class BaseEvent {
     @JsonProperty("version")
     private final String version = "1.0";
 
-    public String getEventId() { return eventId; }
-    public String getEventType() { return eventType; }
-    public Instant getTimestamp() { return timestamp; }
-    public String getVersion() { return version; }
+    public String getEventId() {
+        return eventId;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public Instant getTimestamp() {
+        return timestamp;
+    }
+
+    public String getVersion() {
+        return version;
+    }
 }

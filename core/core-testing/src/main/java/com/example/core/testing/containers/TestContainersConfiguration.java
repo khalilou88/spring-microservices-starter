@@ -24,8 +24,7 @@ public class TestContainersConfiguration {
     @Bean
     @ServiceConnection
     public KafkaContainer kafkaContainer() {
-        return new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.5.0"))
-                .withReuse(true);
+        return new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.5.0")).withReuse(true);
     }
 
     @Bean
