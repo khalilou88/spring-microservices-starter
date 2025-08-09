@@ -21,7 +21,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:15-alpine
+        image: postgres:latest
         env:
           POSTGRES_DB: testdb
           POSTGRES_USER: test
