@@ -18,6 +18,7 @@
 		<module>core/core-vault</module>
 		<module>core/core-testing</module>
 		<module>services/user-service</module>
+		<module>features/user-feature</module>
 	</modules>
 
 	<properties>
