@@ -6,11 +6,11 @@ spring:
     active: ${SPRING_PROFILES_ACTIVE:local}
 
   datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/userdb}
-    username: ${POSTGRES_USERNAME:postgres}
-    password: ${POSTGRES_PASSWORD:postgres}
-    driver-class-name: org.postgresql.Driver
     hikari:
+      jdbc-url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/userdb}
+      username: ${POSTGRES_USERNAME:postgres}
+      password: ${POSTGRES_PASSWORD:postgres}
+      driver-class-name: org.postgresql.Driver
       connection-timeout: 20000
       maximum-pool-size: 10
       minimum-idle: 5
