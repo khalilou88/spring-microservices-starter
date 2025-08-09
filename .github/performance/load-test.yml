@@ -1,0 +1,41 @@
+config:
+  target: 'http://localhost:8080'
+  phases:
+    - duration: 60
+      arrivalRate: 5
+    - duration: 120
+      arrivalRate: 10
+    - duration: 60
+      arrivalRate: 20
+  processor: "./custom-functions.js"
+
+scenarios:
+  - name: "Create and fetch users"
+    weight: 70
+    flow:
+      - post:
+          url: "/api/users"
+          headers:
+            Content-Type: "application/json"
+          json:
+            name: "{{ $randomString() }}"
+            email: "{{ $randomString() }}@example.com"
+          capture:
+            - json: "$.id"
+              as: "userId"
+      - get:
+          url: "/api/users/{{ userId }}"
+      - think: 1
+
+  - name: "List all users"
+    weight: 20
+    flow:
+      - get:
+          url: "/api/users"
+      - think: 2
+
+  - name: "Health check"
+    weight: 10
+    flow:
+      - get:
+          url: "/actuator/health"

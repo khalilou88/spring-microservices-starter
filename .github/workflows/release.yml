@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: Release to Production
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build Release
+        run: |
+          mvn clean package -DskipTests -B
+          mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
+
+      - name: Build and Push Production Images
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/user-service
+          push: true
+          tags: |
+            myorg/user-service:${{ github.event.release.tag_name }}
+            myorg/user-service:latest
+          platforms: linux/amd64,linux/arm64
+
+      - name: Deploy to Production
+        run: |
+          # Deploy to production ECS
+          aws ecs update-service \
+            --cluster production-cluster \
+            --service user-service \
+            --task-definition user-service:${{ github.event.release.tag_name }} \
+            --force-new-deployment
+
+      - name: Create GitHub Release Assets
+        run: |
+          mkdir -p release-assets
+          cp services/user-service/target/user-service-*.jar release-assets/
+          tar -czf release-assets/source.tar.gz --exclude-vcs .
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release-assets/*
