@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>spring-boot-multimodule</artifactId>
+        <artifactId>spring-microservices-starter</artifactId>
         <version>${revision}</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>

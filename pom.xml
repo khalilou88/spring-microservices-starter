@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>spring-boot-multimodule</artifactId>
+    <artifactId>spring-microservices-starter</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
-    <name>Spring Boot Multi-Module</name>
-    <description>Multi-module Spring Boot application with microservices architecture</description>
+    <name>Spring Microservices Starter</name>
+    <description>A production-ready starter template for building scalable Spring Boot applications using a multi-module Maven architecture.</description>
 
     <modules>
         <module>core/core-database</module>
