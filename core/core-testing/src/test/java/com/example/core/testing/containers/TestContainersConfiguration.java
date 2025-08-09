@@ -5,8 +5,8 @@ import org.springframework.boot.testcontainers.service.connection.ServiceConnect
 import org.springframework.context.annotation.Bean;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.containers.VaultContainer;
 import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.vault.VaultContainer;
 
 @TestConfiguration(proxyBeanMethods = false)
 public class TestContainersConfiguration {
@@ -28,8 +28,8 @@ public class TestContainersConfiguration {
     }
 
     @Bean
-    public VaultContainer vaultContainer() {
-        return new VaultContainer(DockerImageName.parse("vault:1.15.2"))
+    public VaultContainer<?> vaultContainer() {
+        return new VaultContainer<>(DockerImageName.parse("vault:1.15.2"))
                 .withVaultToken("test-token")
                 .withVaultPort(8200)
                 .withSecretInVault("secret/application", "spring.datasource.password", "test")
