@@ -1,3 +1,3 @@
-DELETE FROM users;
-ALTER SEQUENCE users_id_seq RESTART WITH 1;
+-- Truncate is safer and faster than DELETE
+TRUNCATE TABLE users RESTART IDENTITY CASCADE;
 
