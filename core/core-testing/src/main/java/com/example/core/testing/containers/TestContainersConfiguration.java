@@ -32,9 +32,13 @@ public class TestContainersConfiguration {
             .withReuse(true);
 
     // Bean definitions for container lifecycle management
-    @Bean
-    public PostgreSQLContainer<?> postgresContainer() {
-        return postgresContainer;
+//    @Bean
+//    public PostgreSQLContainer<?> postgresContainer() {
+//        return postgresContainer;
+//    }
+
+    static {
+        postgresContainer.start(); // Ensure DB ready before context builds
     }
 
     @Bean
