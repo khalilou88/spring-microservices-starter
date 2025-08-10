@@ -60,7 +60,7 @@ public class TestContainersConfiguration {
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         // Override database properties with testcontainer values
-        // Fixed: Use correct Spring Boot property names
+        // Use standard Spring Boot properties instead of Hikari-specific ones
         registry.add("spring.datasource.url", postgresContainer::getJdbcUrl);
         registry.add("spring.datasource.username", postgresContainer::getUsername);
         registry.add("spring.datasource.password", postgresContainer::getPassword);
@@ -69,7 +69,7 @@ public class TestContainersConfiguration {
         // Override Kafka properties
         registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
 
-        // Vault properties (if needed)
+        // Vault properties
         registry.add("spring.cloud.vault.host", vaultContainer::getHost);
         registry.add("spring.cloud.vault.port", () -> vaultContainer.getMappedPort(8200));
         //        registry.add("spring.cloud.vault.token", vaultContainer::getToken);
