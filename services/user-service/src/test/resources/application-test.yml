@@ -7,3 +7,4 @@ logging:
   level:
     com.example: DEBUG
     org.testcontainers: WARN
+    org.flywaydb: DEBUG
