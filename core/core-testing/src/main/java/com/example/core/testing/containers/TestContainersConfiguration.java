@@ -4,12 +4,15 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
 import org.flywaydb.core.Flyway;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.vault.core.VaultTemplate;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -104,5 +107,12 @@ public class TestContainersConfiguration {
                 .locations("classpath:db/migration", "classpath:db/test-data")
                 .cleanDisabled(false)
                 .load();
+    }
+
+    // Create mock VaultTemplate bean for tests (simpler approach)
+    @Bean
+    @Primary
+    public VaultTemplate vaultTemplate() {
+        return Mockito.mock(VaultTemplate.class);
     }
 }
