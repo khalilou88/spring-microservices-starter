@@ -54,6 +54,13 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      # Enable TestContainers container reuse for faster test execution
+      - name: Enable TestContainers reuse
+        run: |
+          mkdir -p ~/.testcontainers
+          echo "testcontainers.reuse.enable=true" > ~/.testcontainers.properties
+          cat ~/.testcontainers.properties
+
       - name: Verify Java Installation
         run: |
           java -version
