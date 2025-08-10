@@ -25,7 +25,7 @@ public class TestContainersConfiguration {
     static KafkaContainer kafkaContainer =
             new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.5.0")).withReuse(true);
 
-    static VaultContainer<?> vaultContainer = new VaultContainer<>(DockerImageName.parse("hashicorp/vault:1.15.2"))
+    static VaultContainer<?> vaultContainer = new VaultContainer<>(DockerImageName.parse("hashicorp/vault:latest"))
             .withVaultToken("test-token")
             .withVaultPort(8200)
             .withSecretInVault("secret/application", "spring.datasource.password", "test")
