@@ -1,5 +1,7 @@
 package com.example.core.testing.containers;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
 import org.flywaydb.core.Flyway;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -78,7 +80,16 @@ public class TestContainersConfiguration {
     // --- Manual Flyway Migration ---
     @Bean(initMethod = "migrate")
     @DependsOn("postgresContainer")
-    public Flyway flyway(DataSource dataSource) {
+    public Flyway flyway() {
+        // Create DataSource directly from container to ensure correct connection
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(postgresContainer.getJdbcUrl());
+        config.setUsername(postgresContainer.getUsername());
+        config.setPassword(postgresContainer.getPassword());
+        config.setDriverClassName("org.postgresql.Driver");
+
+        DataSource dataSource = new HikariDataSource(config);
+
         return Flyway.configure()
                 .dataSource(dataSource)
                 .locations("classpath:db/migration", "classpath:db/test-data")
