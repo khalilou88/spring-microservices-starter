@@ -10,14 +10,18 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.vault.VaultContainer;
 
 @TestConfiguration(proxyBeanMethods = false)
 @Profile("test")
+@Testcontainers
 public class TestContainersConfiguration {
 
     // Static containers for @DynamicPropertySource access
+    @Container
     static PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer<>(
                     DockerImageName.parse("postgres:15-alpine"))
             .withDatabaseName("testdb")
@@ -25,9 +29,11 @@ public class TestContainersConfiguration {
             .withPassword("test")
             .withReuse(true);
 
+    @Container
     static KafkaContainer kafkaContainer =
             new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.5.0")).withReuse(true);
 
+    @Container
     static VaultContainer<?> vaultContainer = new VaultContainer<>(DockerImageName.parse("hashicorp/vault:latest"))
             .withVaultToken("test-token")
             .withVaultPort(8200)
