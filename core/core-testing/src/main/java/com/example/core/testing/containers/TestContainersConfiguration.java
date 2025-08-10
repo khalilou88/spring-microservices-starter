@@ -50,36 +50,16 @@ public class TestContainersConfiguration {
     // Override properties using @DynamicPropertySource
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
-        // PostgreSQL properties
+        // Override database properties with testcontainer values
         registry.add("spring.datasource.hikari.jdbc-url", postgresContainer::getJdbcUrl);
         registry.add("spring.datasource.hikari.username", postgresContainer::getUsername);
         registry.add("spring.datasource.hikari.password", postgresContainer::getPassword);
-        registry.add("spring.datasource.hikari.driver-class-name", postgresContainer::getDriverClassName);
 
-        // Kafka properties
+        // Override Flyway settings for tests
+        registry.add("spring.flyway.clean-disabled", () -> "false");
+        registry.add("spring.flyway.locations", () -> "classpath:db/migration,classpath:db/test-data");
+
+        // Override Kafka properties
         registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
-        registry.add(
-                "spring.kafka.producer.key-serializer", () -> "org.apache.kafka.common.serialization.StringSerializer");
-        registry.add(
-                "spring.kafka.producer.value-serializer",
-                () -> "org.springframework.kafka.support.serializer.JsonSerializer");
-        registry.add(
-                "spring.kafka.consumer.key-deserializer",
-                () -> "org.apache.kafka.common.serialization.StringDeserializer");
-        registry.add(
-                "spring.kafka.consumer.value-deserializer",
-                () -> "org.springframework.kafka.support.serializer.JsonDeserializer");
-        registry.add("spring.kafka.consumer.group-id", () -> "test-group");
-        registry.add("spring.kafka.consumer.auto-offset-reset", () -> "earliest");
-
-        // Vault properties
-        //        registry.add("spring.cloud.vault.enabled", () -> "true");
-        //        registry.add("spring.cloud.vault.host", vaultContainer::getHost);
-        //        registry.add("spring.cloud.vault.port", () -> vaultContainer.getMappedPort(8200));
-        //        registry.add("spring.cloud.vault.scheme", () -> "http");
-        //        registry.add("spring.cloud.vault.token", () -> "test-token");
-        //        registry.add("spring.cloud.vault.kv.enabled", () -> "true");
-        //        registry.add("spring.cloud.vault.kv.backend", () -> "secret");
-        //        registry.add("spring.cloud.vault.kv.default-context", () -> "application");
     }
 }
