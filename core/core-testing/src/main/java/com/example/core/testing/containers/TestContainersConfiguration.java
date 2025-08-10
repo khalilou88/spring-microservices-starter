@@ -1,8 +1,12 @@
 package com.example.core.testing.containers;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import javax.sql.DataSource;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -89,5 +93,20 @@ public class TestContainersConfiguration {
     @Primary
     public VaultTemplate vaultTemplate() {
         return Mockito.mock(VaultTemplate.class);
+    }
+
+    // Create a primary DataSource bean to ensure SQL scripts use the correct connection
+    @Bean
+    @Primary
+    @DependsOn("postgresContainer")
+    public DataSource primaryDataSource() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(postgresContainer.getJdbcUrl());
+        config.setUsername(postgresContainer.getUsername());
+        config.setPassword(postgresContainer.getPassword());
+        config.setDriverClassName("org.postgresql.Driver");
+        config.setMaximumPoolSize(2);
+        config.setMinimumIdle(1);
+        return new HikariDataSource(config);
     }
 }
