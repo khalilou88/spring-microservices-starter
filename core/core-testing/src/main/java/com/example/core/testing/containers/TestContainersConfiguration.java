@@ -3,6 +3,7 @@ package com.example.core.testing.containers;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
+import org.flywaydb.core.Flyway;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -104,5 +105,25 @@ public class TestContainersConfiguration {
         config.setMaximumPoolSize(2);
         config.setMinimumIdle(1);
         return new HikariDataSource(config);
+    }
+
+    // --- Manual Flyway Migration ---
+    @Bean(initMethod = "migrate")
+    @DependsOn("postgresContainer")
+    public Flyway flyway() {
+        // Create DataSource directly from container to ensure correct connection
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(postgresContainer.getJdbcUrl());
+        config.setUsername(postgresContainer.getUsername());
+        config.setPassword(postgresContainer.getPassword());
+        config.setDriverClassName("org.postgresql.Driver");
+
+        DataSource dataSource = new HikariDataSource(config);
+
+        return Flyway.configure()
+                .dataSource(dataSource)
+                .locations("classpath:db/migration", "classpath:db/test-data")
+                .cleanDisabled(false)
+                .load();
     }
 }
