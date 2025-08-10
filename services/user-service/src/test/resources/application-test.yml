@@ -6,7 +6,19 @@ spring:
   flyway:
     enabled: false
 
+# Debug logging
 logging:
   level:
-    com.example: DEBUG
+    com.example:
     org.testcontainers: WARN
+    org.springframework.web: DEBUG
+    org.springframework.transaction: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# Show full error details
+server:
+  error:
+    include-stacktrace: always
+    include-message: always
+    include-binding-errors: always
