@@ -82,10 +82,6 @@ public class TestContainersConfiguration {
         registry.add("spring.cloud.vault.host", vaultContainer::getHost);
         registry.add("spring.cloud.vault.port", () -> vaultContainer.getMappedPort(8200));
         registry.add("spring.cloud.vault.token", () -> "test-token"); // Use the token we set in withVaultToken()
-
-        // Let JPA handle schema creation for tests
-        registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
-        registry.add("spring.jpa.show-sql", () -> "true");
     }
 
     // Create mock VaultTemplate bean for tests (simpler approach)
