@@ -72,9 +72,18 @@ public class TestContainersConfiguration {
         registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
 
         // Vault properties
-        registry.add("spring.cloud.vault.host", vaultContainer::getHost);
-        registry.add("spring.cloud.vault.port", () -> vaultContainer.getMappedPort(8200));
-        //        registry.add("spring.cloud.vault.token", vaultContainer::getToken);
+        //        registry.add("spring.cloud.vault.host", vaultContainer::getHost);
+        //        registry.add("spring.cloud.vault.port", () -> vaultContainer.getMappedPort(8200));
+        //        registry.add("spring.cloud.vault.token", () -> "test-token");  // Use the token we set in
+        // withVaultToken()
+
+        // Vault configuration
+        registry.add(
+                "spring.cloud.vault.uri",
+                () -> String.format("http://%s:%d", vaultContainer.getHost(), vaultContainer.getMappedPort(8200)));
+        registry.add("spring.cloud.vault.token", () -> "test-token"); // Use the token we set in withVaultToken()
+        registry.add("spring.cloud.vault.kv.enabled", () -> "true");
+        registry.add("spring.cloud.vault.enabled", () -> "true");
     }
 
     // --- Manual Flyway Migration ---
