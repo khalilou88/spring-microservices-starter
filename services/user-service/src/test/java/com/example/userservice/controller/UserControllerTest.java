@@ -2,8 +2,10 @@ package com.example.userservice.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.example.userservice.model.User;
@@ -44,6 +46,7 @@ class UserControllerTest {
         mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user)))
+                .andDo(print()) // Add this to see full request/response
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value("John Doe"))
@@ -60,6 +63,7 @@ class UserControllerTest {
         when(userService.getUserById(1L)).thenReturn(user);
 
         mockMvc.perform(get("/api/users/1"))
+                .andDo(print()) // Add this to see full request/response
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value("John Doe"))
@@ -77,6 +81,7 @@ class UserControllerTest {
         when(userService.getAllUsers()).thenReturn(users);
 
         mockMvc.perform(get("/api/users"))
+                .andDo(print()) // Add this to see full request/response
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2))
                 .andExpect(jsonPath("$[0].name").value("John Doe"))
@@ -96,6 +101,7 @@ class UserControllerTest {
         mockMvc.perform(put("/api/users/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updateRequest)))
+                .andDo(print()) // Add this to see full request/response
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value("John Updated"))
@@ -104,6 +110,18 @@ class UserControllerTest {
 
     @Test
     void deleteUser_ShouldReturnNoContent() throws Exception {
-        mockMvc.perform(delete("/api/users/1")).andExpect(status().isNoContent());
+        // Mock the void method explicitly
+        doNothing().when(userService).deleteUser(1L);
+
+        mockMvc.perform(delete("/api/users/1"))
+                .andDo(print()) // Add this to see full request/response
+                .andExpect(status().isNoContent());
+    }
+
+    // Add this test to debug context loading
+    @Test
+    void contextLoads() throws Exception {
+        // This test will fail if there are context loading issues
+        mockMvc.perform(get("/api/users")).andDo(print());
     }
 }
