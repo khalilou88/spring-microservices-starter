@@ -3,6 +3,9 @@ spring:
     vault:
       enabled: false
 
+  flyway:
+    enabled: false
+
 logging:
   level:
     com.example: DEBUG

@@ -1,7 +1,10 @@
 package com.example.core.testing.containers;
 
+import javax.sql.DataSource;
+import org.flywaydb.core.Flyway;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -55,11 +58,18 @@ public class TestContainersConfiguration {
         registry.add("spring.datasource.hikari.username", postgresContainer::getUsername);
         registry.add("spring.datasource.hikari.password", postgresContainer::getPassword);
 
-        // Override Flyway settings for tests
-        registry.add("spring.flyway.clean-disabled", () -> "false");
-        registry.add("spring.flyway.locations", () -> "classpath:db/migration,classpath:db/test-data");
-
         // Override Kafka properties
         registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
+    }
+
+    // --- Manual Flyway Migration ---
+    @Bean(initMethod = "migrate")
+    @DependsOn("postgresContainer")
+    public Flyway flyway(DataSource dataSource) {
+        return Flyway.configure()
+                .dataSource(dataSource)
+                .locations("classpath:db/migration", "classpath:db/test-data")
+                .cleanDisabled(false)
+                .load();
     }
 }
