@@ -60,12 +60,19 @@ public class TestContainersConfiguration {
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         // Override database properties with testcontainer values
-        registry.add("spring.datasource.hikari.jdbc-url", postgresContainer::getJdbcUrl);
-        registry.add("spring.datasource.hikari.username", postgresContainer::getUsername);
-        registry.add("spring.datasource.hikari.password", postgresContainer::getPassword);
+        // Fixed: Use correct Spring Boot property names
+        registry.add("spring.datasource.url", postgresContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", postgresContainer::getUsername);
+        registry.add("spring.datasource.password", postgresContainer::getPassword);
+        registry.add("spring.datasource.driver-class-name", () -> "org.postgresql.Driver");
 
         // Override Kafka properties
         registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers);
+
+        // Vault properties (if needed)
+        registry.add("spring.cloud.vault.host", vaultContainer::getHost);
+        registry.add("spring.cloud.vault.port", () -> vaultContainer.getMappedPort(8200));
+        //        registry.add("spring.cloud.vault.token", vaultContainer::getToken);
     }
 
     // --- Manual Flyway Migration ---
