@@ -38,9 +38,9 @@ public class TestContainersConfiguration {
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
-        // Override database properties with testcontainer values
         registry.add("spring.datasource.hikari.jdbc-url", postgresContainer::getJdbcUrl);
         registry.add("spring.datasource.hikari.username", postgresContainer::getUsername);
         registry.add("spring.datasource.hikari.password", postgresContainer::getPassword);
+        registry.add("spring.datasource.hikari.driver-class-name", () -> "org.postgresql.Driver");
     }
 }
