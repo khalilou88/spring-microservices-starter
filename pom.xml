@@ -15,10 +15,11 @@
         <module>core/core-events</module>
         <module>core/core-messaging</module>
         <module>core/core-monitoring</module>
+        <module>core/core-web</module>
         <module>core/core-security</module>
         <module>core/core-testing</module>
         <module>core/core-vault</module>
-        <module>core/core-web</module>
+
         <module>features/user-feature</module>
         <module>services/user-service</module>
     </modules>

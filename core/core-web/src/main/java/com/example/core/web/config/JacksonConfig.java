@@ -1,4 +1,4 @@
-package com.example.userservice.config;
+package com.example.core.web.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
