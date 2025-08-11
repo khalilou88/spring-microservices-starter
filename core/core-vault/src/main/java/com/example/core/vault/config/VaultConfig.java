@@ -1,10 +1,16 @@
 package com.example.core.vault.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.vault.authentication.TokenAuthentication;
+import org.springframework.vault.client.VaultEndpoint;
+import org.springframework.vault.core.VaultTemplate;
 
 @Configuration
 @ConfigurationProperties(prefix = "spring.cloud.vault")
+@Profile("!test") // Only load in non-test profiles
 public class VaultConfig {
 
     private String uri = "http://localhost:8200";
@@ -12,6 +18,13 @@ public class VaultConfig {
     private Kv kv = new Kv();
     private Database database = new Database();
 
+    @Bean
+    public VaultTemplate vaultTemplate() {
+        VaultEndpoint endpoint = VaultEndpoint.from(java.net.URI.create(uri));
+        return new VaultTemplate(endpoint, new TokenAuthentication(token));
+    }
+
+    // Getters and setters
     public String getUri() {
         return uri;
     }
