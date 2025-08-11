@@ -2,6 +2,7 @@ spring:
   cloud:
     vault:
       enabled: false
+      token: test-token
 
 logging:
   level:
