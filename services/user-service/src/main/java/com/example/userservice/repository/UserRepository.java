@@ -117,4 +117,22 @@ public class UserRepository extends BaseRepository<User, Long> {
             return user;
         }
     }
+
+    private static final String SELECT_ALL_USERS_PAGINATED =
+            """
+            SELECT id, name, email, created_at, updated_at FROM users
+            ORDER BY created_at DESC
+            LIMIT ? OFFSET ?
+            """;
+
+    private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM users";
+
+    public List<User> findAll(int limit, int offset) {
+        return jdbcTemplate.query(SELECT_ALL_USERS_PAGINATED, userRowMapper, limit, offset);
+    }
+
+    public long count() {
+        Long count = jdbcTemplate.queryForObject(COUNT_ALL_USERS, Long.class);
+        return count != null ? count : 0L;
+    }
 }

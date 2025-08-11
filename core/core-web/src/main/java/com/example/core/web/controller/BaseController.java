@@ -1,6 +1,7 @@
 package com.example.core.web.controller;
 
 import com.example.core.web.response.ApiResponse;
+import com.example.core.web.response.PageResult;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ public abstract class BaseController {
         return ResponseEntity.noContent().build();
     }
 
+    // Spring Data
     protected <T> ResponseEntity<ApiResponse<PagedResponse<T>>> pagedSuccess(Page<T> page) {
         PagedResponse<T> pagedResponse = new PagedResponse<>(
                 page.getContent(),
@@ -33,6 +35,19 @@ public abstract class BaseController {
                 page.getTotalPages(),
                 page.isFirst(),
                 page.isLast());
+        return ResponseEntity.ok(ApiResponse.success(pagedResponse));
+    }
+
+    // Custom
+    protected <T> ResponseEntity<ApiResponse<PagedResponse<T>>> pagedSuccess(PageResult<T> pageResult) {
+        PagedResponse<T> pagedResponse = new PagedResponse<>(
+                pageResult.getContent(),
+                pageResult.getPage(),
+                pageResult.getSize(),
+                pageResult.getTotalElements(),
+                pageResult.getTotalPages(),
+                pageResult.isFirst(),
+                pageResult.isLast());
         return ResponseEntity.ok(ApiResponse.success(pagedResponse));
     }
 

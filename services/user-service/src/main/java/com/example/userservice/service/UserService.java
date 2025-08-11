@@ -1,6 +1,7 @@
 package com.example.userservice.service;
 
 import com.example.core.messaging.producer.EventPublisher;
+import com.example.core.web.response.PageResult;
 import com.example.userservice.event.UserCreatedEvent;
 import com.example.userservice.event.UserDeletedEvent;
 import com.example.userservice.event.UserUpdatedEvent;
@@ -57,6 +58,14 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public PageResult<User> getAllUsers(int page, int size) {
+        int offset = page * size;
+        List<User> users = userRepository.findAll(size, offset);
+        long total = userRepository.count();
+        return new PageResult<>(users, page, size, total);
     }
 
     public User updateUser(Long id, User userUpdate) {
