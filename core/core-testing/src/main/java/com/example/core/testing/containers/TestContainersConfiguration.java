@@ -18,7 +18,6 @@ public class TestContainersConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(TestContainersConfiguration.class);
 
     @Container
-    @ServiceConnection
     static PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer<>(
                     DockerImageName.parse("postgres:15-alpine"))
             .withDatabaseName("testdb")
