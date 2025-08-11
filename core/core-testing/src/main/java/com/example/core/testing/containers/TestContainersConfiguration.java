@@ -3,6 +3,8 @@ package com.example.core.testing.containers;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -33,4 +35,12 @@ public class TestContainersConfiguration {
             .withVaultPort(8200)
             .withSecretInVault("secret/application", "spring.datasource.password", "test")
             .withReuse(true);
+
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        // Override database properties with testcontainer values
+        registry.add("spring.datasource.hikari.jdbc-url", postgresContainer::getJdbcUrl);
+        registry.add("spring.datasource.hikari.username", postgresContainer::getUsername);
+        registry.add("spring.datasource.hikari.password", postgresContainer::getPassword);
+    }
 }
