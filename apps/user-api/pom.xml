@@ -9,9 +9,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>user-app</artifactId>
-    <name>User Service</name>
-    <description>User management microservice</description>
+    <artifactId>user-api</artifactId>
+    <name>User Api</name>
+    <description>User management api microservice</description>
 
     <dependencies>
 

@@ -4,18 +4,13 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>spring-microservices-starter-libs</artifactId>
+        <artifactId>spring-microservices-starter-libs-user-api</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-microservices-starter-libs-features</artifactId>
-    <packaging>pom</packaging>
-    <name>Features</name>
-    <description>Features</description>
-
-    <modules>
-        <module>user-feature</module>
-    </modules>
+    <artifactId>user-api-impl</artifactId>
+    <name>User Api impl</name>
+    <description>User management Api implementation</description>
 
 </project>

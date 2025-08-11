@@ -16,6 +16,7 @@
 
     <modules>
         <module>core</module>
+        <module>user-api</module>
     </modules>
 
 </project>
