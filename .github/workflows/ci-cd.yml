@@ -191,7 +191,7 @@ jobs:
 
       - name: Start Infrastructure
         run: |
-          docker-compose up -d postgres kafka vault
+          docker compose up -d postgres kafka vault
           sleep 30
 
       - name: Build and Start Application
