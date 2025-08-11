@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.example.core.web.response.PageResult;
 import com.example.userservice.model.User;
 import com.example.userservice.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,9 +46,11 @@ class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("John Doe"))
-                .andExpect(jsonPath("$.email").value("john@example.com"));
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.message").value("Resource created successfully"))
+                .andExpect(jsonPath("$.data.id").value(1))
+                .andExpect(jsonPath("$.data.name").value("John Doe"))
+                .andExpect(jsonPath("$.data.email").value("john@example.com"));
     }
 
     @Test
@@ -61,26 +64,36 @@ class UserControllerTest {
 
         mockMvc.perform(get("/api/users/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("John Doe"))
-                .andExpect(jsonPath("$.email").value("john@example.com"));
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.id").value(1))
+                .andExpect(jsonPath("$.data.name").value("John Doe"))
+                .andExpect(jsonPath("$.data.email").value("john@example.com"));
     }
 
     @Test
-    void getAllUsers_ShouldReturnUserList() throws Exception {
+    void getAllUsers_ShouldReturnPagedUserList() throws Exception {
         User user1 = new User("John Doe", "john@example.com");
         user1.setId(1L);
         User user2 = new User("Jane Smith", "jane@example.com");
         user2.setId(2L);
 
         List<User> users = Arrays.asList(user1, user2);
-        when(userService.getAllUsers()).thenReturn(users);
+        PageResult<User> pageResult = new PageResult<>(users, 0, 10, 2L);
 
-        mockMvc.perform(get("/api/users"))
+        when(userService.getAllUsers(0, 10)).thenReturn(pageResult);
+
+        mockMvc.perform(get("/api/users").param("page", "0").param("size", "10"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(2))
-                .andExpect(jsonPath("$[0].name").value("John Doe"))
-                .andExpect(jsonPath("$[1].name").value("Jane Smith"));
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.content.length()").value(2))
+                .andExpect(jsonPath("$.data.content[0].name").value("John Doe"))
+                .andExpect(jsonPath("$.data.content[1].name").value("Jane Smith"))
+                .andExpect(jsonPath("$.data.page").value(0))
+                .andExpect(jsonPath("$.data.size").value(10))
+                .andExpect(jsonPath("$.data.totalElements").value(2))
+                .andExpect(jsonPath("$.data.totalPages").value(1))
+                .andExpect(jsonPath("$.data.first").value(true))
+                .andExpect(jsonPath("$.data.last").value(true));
     }
 
     @Test
@@ -97,13 +110,52 @@ class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updateRequest)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("John Updated"))
-                .andExpect(jsonPath("$.email").value("john.updated@example.com"));
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.message").value("User updated successfully"))
+                .andExpect(jsonPath("$.data.id").value(1))
+                .andExpect(jsonPath("$.data.name").value("John Updated"))
+                .andExpect(jsonPath("$.data.email").value("john.updated@example.com"));
     }
 
     @Test
     void deleteUser_ShouldReturnNoContent() throws Exception {
         mockMvc.perform(delete("/api/users/1")).andExpect(status().isNoContent());
+    }
+
+    @Test
+    void getAllUsers_WithDefaultPagination_ShouldWork() throws Exception {
+        User user1 = new User("John Doe", "john@example.com");
+        user1.setId(1L);
+
+        List<User> users = Arrays.asList(user1);
+        PageResult<User> pageResult = new PageResult<>(users, 0, 10, 1L);
+
+        when(userService.getAllUsers(0, 10)).thenReturn(pageResult);
+
+        mockMvc.perform(get("/api/users"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.content.length()").value(1))
+                .andExpect(jsonPath("$.data.page").value(0))
+                .andExpect(jsonPath("$.data.size").value(10));
+    }
+
+    @Test
+    void getAllUsers_WithCustomPagination_ShouldWork() throws Exception {
+        User user1 = new User("John Doe", "john@example.com");
+        user1.setId(1L);
+
+        List<User> users = Arrays.asList(user1);
+        PageResult<User> pageResult = new PageResult<>(users, 1, 5, 6L);
+
+        when(userService.getAllUsers(1, 5)).thenReturn(pageResult);
+
+        mockMvc.perform(get("/api/users").param("page", "1").param("size", "5"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.page").value(1))
+                .andExpect(jsonPath("$.data.size").value(5))
+                .andExpect(jsonPath("$.data.totalElements").value(6))
+                .andExpect(jsonPath("$.data.first").value(false));
     }
 }
