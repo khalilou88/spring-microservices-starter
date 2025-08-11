@@ -18,6 +18,7 @@ public class TestContainersConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(TestContainersConfiguration.class);
 
     @Container
+    @ServiceConnection
     static PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer<>(
                     DockerImageName.parse("postgres:15-alpine"))
             .withDatabaseName("testdb")
@@ -40,9 +41,5 @@ public class TestContainersConfiguration {
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         logger.debug(">>> Registering DynamicPropertySource properties");
-        registry.add("spring.datasource.hikari.jdbc-url", postgresContainer::getJdbcUrl);
-        registry.add("spring.datasource.hikari.username", postgresContainer::getUsername);
-        registry.add("spring.datasource.hikari.password", postgresContainer::getPassword);
-        registry.add("spring.datasource.hikari.driver-class-name", () -> "org.postgresql.Driver");
     }
 }
