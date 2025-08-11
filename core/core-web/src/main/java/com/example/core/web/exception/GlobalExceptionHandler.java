@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
 
         logger.warn("Validation failed: {}", errors);
         return ResponseEntity.badRequest()
-                .body(new ApiResponse<>(false, "Validation failed", errors, request.getRequestURI()));
+                .body(ApiResponse.error("Validation failed", errors, request.getRequestURI()));
     }
 
     @ExceptionHandler(Exception.class)

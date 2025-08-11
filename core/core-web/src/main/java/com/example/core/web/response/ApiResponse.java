@@ -22,7 +22,7 @@ public class ApiResponse<T> {
     @JsonProperty("path")
     private String path;
 
-    public ApiResponse(boolean success, String message, T data, String path) {
+    private ApiResponse(boolean success, String message, T data, String path) {
         this.success = success;
         this.message = message;
         this.data = data;
@@ -36,6 +36,10 @@ public class ApiResponse<T> {
 
     public static <T> ApiResponse<T> success(String message, T data) {
         return new ApiResponse<>(true, message, data, null);
+    }
+
+    public static <T> ApiResponse<T> error(String message, T data, String path) {
+        return new ApiResponse<>(false, message, data, path);
     }
 
     public static <T> ApiResponse<T> error(String message, String path) {
