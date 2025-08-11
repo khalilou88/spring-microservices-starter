@@ -19,6 +19,7 @@ class UserRepositoryTest {
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         System.out.println(">>> Registering DynamicPropertySource properties UserRepositoryTest");
+        registry.add("spring.datasource.driver-class-name", () -> "org.postgresql.Driver");
     }
 
     @Autowired

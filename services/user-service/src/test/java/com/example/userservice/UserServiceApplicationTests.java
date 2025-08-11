@@ -11,6 +11,8 @@ class UserServiceApplicationTests {
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         System.out.println(">>> Registering DynamicPropertySource properties UserServiceApplicationTests");
+
+        registry.add("spring.datasource.driver-class-name", () -> "org.postgresql.Driver");
     }
 
     @Test
