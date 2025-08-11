@@ -15,13 +15,6 @@
 
     <dependencies>
 
-
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>user-api-impl</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!-- Core Modules -->
         <dependency>
             <groupId>com.example</groupId>
@@ -38,6 +31,12 @@
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>core-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>user-api-impl</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

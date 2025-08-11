@@ -2,7 +2,7 @@ package com.example.userapi.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.core.testing.annotation.IntegrationTest;
+import com.example.core.testing.annotation.RepositoryTest;
 import com.example.userapi.model.User;
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 
-@IntegrationTest
+@RepositoryTest
 @Sql(scripts = "/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 class UserRepositoryTest {
 
