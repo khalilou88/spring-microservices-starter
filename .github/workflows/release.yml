@@ -27,7 +27,7 @@ jobs:
           mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
 
       - name: Build and Push Production Images
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./services/user-service
           push: true
