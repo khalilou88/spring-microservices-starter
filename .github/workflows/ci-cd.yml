@@ -72,7 +72,7 @@ jobs:
         run: mvn jacoco:report
 
       - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           file: ./target/site/jacoco/jacoco.xml
           flags: unittests
