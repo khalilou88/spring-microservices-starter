@@ -101,7 +101,8 @@ jobs:
         run: |
           mvn org.owasp:dependency-check-maven:check \
             -DfailBuildOnCVSS=7 \
-            -DskipProvidedScope=true
+            -DskipProvidedScope=true \
+            -DnvdApiKey="${{ secrets.NVD_API_KEY }}"
 
       - name: Upload Security Report
         uses: actions/upload-artifact@v4
