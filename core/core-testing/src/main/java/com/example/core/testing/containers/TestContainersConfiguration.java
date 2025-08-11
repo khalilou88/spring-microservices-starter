@@ -1,5 +1,7 @@
 package com.example.core.testing.containers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Profile;
@@ -14,6 +16,8 @@ import org.testcontainers.vault.VaultContainer;
 @TestConfiguration(proxyBeanMethods = false)
 @Profile("test")
 public class TestContainersConfiguration {
+
+    private static final Logger logger = LoggerFactory.getLogger(TestContainersConfiguration.class);
 
     @Container
     @ServiceConnection
@@ -38,6 +42,7 @@ public class TestContainersConfiguration {
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
+        logger.debug(">>> Registering DynamicPropertySource properties");
         registry.add("spring.datasource.hikari.jdbc-url", postgresContainer::getJdbcUrl);
         registry.add("spring.datasource.hikari.username", postgresContainer::getUsername);
         registry.add("spring.datasource.hikari.password", postgresContainer::getPassword);
