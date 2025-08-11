@@ -1,16 +1,17 @@
 package com.example.userservice.controller;
 
+import com.example.core.web.controller.BaseController;
+import com.example.core.web.response.ApiResponse;
+import com.example.core.web.response.PageResult;
 import com.example.userservice.model.User;
 import com.example.userservice.service.UserService;
 import jakarta.validation.Valid;
-import java.util.List;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserController {
+public class UserController extends BaseController {
 
     private final UserService userService;
 
@@ -19,32 +20,34 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+    public ResponseEntity<ApiResponse<User>> createUser(@Valid @RequestBody User user) {
         User createdUser = userService.createUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+        return created(createdUser);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
+    public ResponseEntity<ApiResponse<User>> getUserById(@PathVariable("id") Long id) {
         User user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
+        return success(user);
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<ApiResponse<PagedResponse<User>>> getAllUsers(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size) {
+        PageResult<User> users = userService.getAllUsers(page, size);
+        return pagedSuccess(users);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @Valid @RequestBody User user) {
+    public ResponseEntity<ApiResponse<User>> updateUser(@PathVariable("id") Long id, @Valid @RequestBody User user) {
         User updatedUser = userService.updateUser(id, user);
-        return ResponseEntity.ok(updatedUser);
+        return success("User updated successfully", updatedUser);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
+    public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
+        return noContent();
     }
 }
