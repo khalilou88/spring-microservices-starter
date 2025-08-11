@@ -72,6 +72,11 @@
                 <artifactId>core-vault</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>core-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

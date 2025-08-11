@@ -28,6 +28,10 @@
             <groupId>com.example</groupId>
             <artifactId>core-vault</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>core-web</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
