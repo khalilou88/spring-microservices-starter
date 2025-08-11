@@ -2,8 +2,8 @@ spring:
   application:
     name: user-service
 
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE:local}
+#  profiles:
+#    active: ${SPRING_PROFILES_ACTIVE:local}
 
   datasource:
     hikari:
