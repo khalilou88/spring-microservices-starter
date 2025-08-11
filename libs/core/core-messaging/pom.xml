@@ -4,29 +4,29 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>spring-microservices-starter</artifactId>
+        <artifactId>spring-microservices-starter-libs-core</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>core-events</artifactId>
-    <name>Core Events</name>
-    <description>Domain events and event sourcing utilities</description>
+    <artifactId>core-messaging</artifactId>
+    <name>Core Messaging</name>
+    <description>Kafka messaging utilities</description>
 
     <dependencies>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

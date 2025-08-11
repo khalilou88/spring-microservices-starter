@@ -4,9 +4,9 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>spring-microservices-starter</artifactId>
+        <artifactId>spring-microservices-starter-libs-features</artifactId>
         <version>${revision}</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>user-feature</artifactId>
