@@ -14,7 +14,6 @@ import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.vault.VaultContainer;
 
 @TestConfiguration(proxyBeanMethods = false)
-@Profile("test")
 public class TestContainersConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(TestContainersConfiguration.class);
