@@ -10,7 +10,6 @@ import org.springframework.vault.core.VaultTemplate;
 
 @Configuration
 @ConfigurationProperties(prefix = "spring.cloud.vault")
-@Profile("!test") // Only load in non-test profiles
 public class VaultConfig {
 
     private String uri = "http://localhost:8200";
