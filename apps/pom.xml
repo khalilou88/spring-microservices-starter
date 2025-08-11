@@ -12,10 +12,10 @@
     <artifactId>spring-microservices-starter-apps</artifactId>
     <packaging>pom</packaging>
     <name>Apps</name>
-    <description>Apps</description>
+    <description>Contains the application modules</description>
 
     <modules>
-        <module>user-service</module>
+        <module>user-api</module>
     </modules>
 
 </project>
