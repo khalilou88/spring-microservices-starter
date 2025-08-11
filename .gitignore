@@ -56,9 +56,9 @@ ehthumbs.db
 Thumbs.db
 
 # Application
-application-local.yml
-application-dev.yml
-application-prod.yml
+#application-local.yml
+#application-dev.yml
+#application-prod.yml
 
 # Logs
 logs/
