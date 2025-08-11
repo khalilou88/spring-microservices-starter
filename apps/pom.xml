@@ -9,7 +9,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-microservices-starter-apps</artifactId>
+    <artifactId>apps</artifactId>
     <packaging>pom</packaging>
     <name>Apps</name>
     <description>Contains the application modules</description>

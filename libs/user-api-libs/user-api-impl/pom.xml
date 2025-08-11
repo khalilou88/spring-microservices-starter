@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>spring-microservices-starter-libs-user-api</artifactId>
+        <artifactId>user-api-libs</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>

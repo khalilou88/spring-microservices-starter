@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>spring-microservices-starter-apps</artifactId>
+        <artifactId>apps</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>

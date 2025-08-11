@@ -9,14 +9,14 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-microservices-starter-libs</artifactId>
+    <artifactId>libs</artifactId>
     <packaging>pom</packaging>
     <name>Libs</name>
     <description>Libs</description>
 
     <modules>
         <module>core</module>
-        <module>user-api</module>
+        <module>user-api-libs</module>
     </modules>
 
 </project>

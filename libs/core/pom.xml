@@ -4,12 +4,12 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>spring-microservices-starter-libs</artifactId>
+        <artifactId>libs</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-microservices-starter-libs-core</artifactId>
+    <artifactId>core</artifactId>
     <packaging>pom</packaging>
     <name>Core</name>
     <description>Core</description>
