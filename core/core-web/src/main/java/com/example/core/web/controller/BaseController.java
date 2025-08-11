@@ -21,6 +21,10 @@ public abstract class BaseController {
                 .body(ApiResponse.success("Resource created successfully", data));
     }
 
+    protected <T> ResponseEntity<ApiResponse<T>> created(String message, T data) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(message, data));
+    }
+
     protected ResponseEntity<ApiResponse<Void>> noContent() {
         return ResponseEntity.noContent().build();
     }
