@@ -11,8 +11,8 @@
 
     <artifactId>user-api-libs</artifactId>
     <packaging>pom</packaging>
-    <name>User Api</name>
-    <description>User Api</description>
+    <name>User Api libs</name>
+    <description>User Api libs</description>
 
     <modules>
         <module>user-api-impl</module>
