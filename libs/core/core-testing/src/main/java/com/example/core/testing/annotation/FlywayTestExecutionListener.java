@@ -9,8 +9,11 @@ public class FlywayTestExecutionListener extends AbstractTestExecutionListener {
 
     @Override
     public void beforeTestMethod(TestContext testContext) {
+        // Get Flyway bean from the application context
         ApplicationContext applicationContext = testContext.getApplicationContext();
         Flyway flyway = applicationContext.getBean(Flyway.class);
+
+        // Clean + migrate the database before each test
         flyway.clean();
         flyway.migrate();
     }
