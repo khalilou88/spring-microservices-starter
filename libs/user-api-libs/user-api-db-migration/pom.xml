@@ -4,19 +4,13 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>libs</artifactId>
+        <artifactId>user-api-libs</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>user-api-libs</artifactId>
-    <packaging>pom</packaging>
-    <name>User Api libs</name>
-    <description>User Api libs</description>
-
-    <modules>
-        <module>user-api-impl</module>
-        <module>user-api-db-migration</module>
-    </modules>
+    <artifactId>user-api-db-migration</artifactId>
+    <name>user-api-db-migration</name>
+    <description>user-api-db-migration</description>
 
 </project>
