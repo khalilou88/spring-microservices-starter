@@ -43,32 +43,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Internal Modules -->
-            <dependency>
-                <groupId>com.example</groupId>
-                <artifactId>core-database</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.example</groupId>
-                <artifactId>core-messaging</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.example</groupId>
-                <artifactId>core-testing</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.example</groupId>
-                <artifactId>core-vault</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.example</groupId>
-                <artifactId>core-web</artifactId>
-                <version>${project.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
