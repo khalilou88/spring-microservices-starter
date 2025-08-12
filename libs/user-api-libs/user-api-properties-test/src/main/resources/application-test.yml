@@ -8,3 +8,6 @@ logging:
   level:
     com.example: DEBUG
     org.testcontainers: WARN
+    org.springframework.jdbc: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.flywaydb: INFO
