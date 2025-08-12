@@ -8,8 +8,14 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestPropertySource;
 
 @IntegrationTest
+@TestPropertySource(
+        properties = {
+            "logging.level.org.springframework.boot.context.config=DEBUG",
+            "logging.level.org.springframework.core.env=DEBUG"
+        })
 class UserRepositoryTest {
 
     @Autowired
