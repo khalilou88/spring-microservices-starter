@@ -1,0 +1,20 @@
+package com.example.core.testing.listener;
+
+import org.flywaydb.core.Flyway;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.TestContext;
+import org.springframework.test.context.support.AbstractTestExecutionListener;
+
+public class FlywayTestExecutionListener extends AbstractTestExecutionListener {
+
+    @Override
+    public void beforeTestMethod(TestContext testContext) {
+        // Get Flyway bean from the application context
+        ApplicationContext applicationContext = testContext.getApplicationContext();
+        Flyway flyway = applicationContext.getBean(Flyway.class);
+
+        // Clean + migrate the database before each test
+        flyway.clean();
+        flyway.migrate();
+    }
+}
