@@ -32,6 +32,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Enable Testcontainers reuse
+        run: |
+          echo "testcontainers.reuse.enable=true" > ~/.testcontainers.properties
+
       - name: Cache Maven Dependencies
         uses: actions/cache@v3
         with:
