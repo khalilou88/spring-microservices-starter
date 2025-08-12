@@ -19,29 +19,27 @@
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>core-database</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>core-messaging</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>core-vault</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>core-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>user-api-db-migration</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>user-api-properties-dev</artifactId>
+            <artifactId>user-api-db-migration</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -89,6 +87,13 @@
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>user-api-properties-dev</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -99,6 +104,7 @@
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>core-testing</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
