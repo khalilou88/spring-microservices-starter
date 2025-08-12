@@ -41,6 +41,12 @@
 
         <dependency>
             <groupId>com.example</groupId>
+            <artifactId>user-api-impl</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
             <artifactId>user-api-properties-dev</artifactId>
             <version>${project.version}</version>
         </dependency>
