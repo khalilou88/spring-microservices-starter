@@ -40,6 +40,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>user-api-properties-dev</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
@@ -93,6 +99,13 @@
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>core-testing</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>user-api-properties-test</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
