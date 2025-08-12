@@ -4,6 +4,9 @@ spring:
       enabled: false
       token: test-token
 
+  flyway:
+    clean-disabled: false
+
 logging:
   level:
     com.example: DEBUG
