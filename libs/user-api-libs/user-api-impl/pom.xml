@@ -15,12 +15,6 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>user-api-test-app</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!-- Core Modules -->
         <dependency>
             <groupId>com.example</groupId>
