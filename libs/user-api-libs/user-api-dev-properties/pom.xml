@@ -9,8 +9,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>user-api-properties-dev</artifactId>
-    <name>user-api-properties-dev</name>
-    <description>user-api-properties-dev</description>
+    <artifactId>user-api-dev-properties</artifactId>
+    <name>user-api-dev-properties</name>
+    <description>user-api-dev-properties</description>
 
 </project>

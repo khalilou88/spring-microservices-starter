@@ -103,7 +103,7 @@
 
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>user-api-properties-dev</artifactId>
+            <artifactId>user-api-dev-properties</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
