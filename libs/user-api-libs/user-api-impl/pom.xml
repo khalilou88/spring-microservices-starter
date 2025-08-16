@@ -132,7 +132,7 @@
 
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>user-api-properties-test</artifactId>
+            <artifactId>user-api-test-properties</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
