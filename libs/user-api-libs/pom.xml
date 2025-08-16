@@ -19,6 +19,7 @@
         <module>user-api-db-migration</module>
         <module>user-api-properties-dev</module>
         <module>user-api-test-app</module>
+        <module>user-api-spring-boot-app</module>
         <module>user-api-properties-test</module>
     </modules>
 
