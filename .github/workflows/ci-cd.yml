@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -92,7 +92,7 @@ jobs:
 #
 #    steps:
 #      - name: Checkout Code
-#        uses: actions/checkout@v4
+#        uses: actions/checkout@v5
 #
 #      - name: Set up JDK
 #        uses: actions/setup-java@v4
@@ -130,7 +130,7 @@ jobs:
 #
 #    steps:
 #      - name: Checkout Code
-#        uses: actions/checkout@v4
+#        uses: actions/checkout@v5
 #
 #      - name: Set up JDK
 #        uses: actions/setup-java@v4
@@ -185,7 +185,7 @@ jobs:
 #
 #    steps:
 #      - name: Checkout Code
-#        uses: actions/checkout@v4
+#        uses: actions/checkout@v5
 #
 #      - name: Set up JDK
 #        uses: actions/setup-java@v4
@@ -229,7 +229,7 @@ jobs:
 #
 #    steps:
 #      - name: Checkout Code
-#        uses: actions/checkout@v4
+#        uses: actions/checkout@v5
 #
 #      - name: Configure AWS Credentials
 #        uses: aws-actions/configure-aws-credentials@v4
